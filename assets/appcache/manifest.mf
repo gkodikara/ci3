@@ -1,0 +1,9 @@
+CACHE MANIFEST
+./jquery.min.js
+./easytimer.min.js
+./jquery-ui.min.css
+./jquery-ui.min.js
+./bootstrap.css
+./bootstrap.js
+./scoreboard.html
+
