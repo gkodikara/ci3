@@ -260,7 +260,7 @@
                     <div class="col">Fouls</div>
                     <div class="col">Points</div>
                 </div>
-                <ul id="sortable1B">
+                <ul id="sortable1B" class="sortable">
                     <li class="ui-state-default" data-player-id="100" data-player-number="24" data-player-name="Kobe" data-player-game-time="00:00" data-player-fouls="0" data-player-points="0">
                         <div class="row">
                             <div class="col">24</div>
@@ -376,29 +376,36 @@
    
     <span id="onlineStatus"></span>
     <script>
+    
         $(document).ready(function() {
             checkNetConnection();
             var gameData = localStorage.getItem('gameData');
             var playerData = localStorage.getItem('playerData');
             var pageHtml = localStorage.getItem('pageHtml');
-            if (gameData != null && playerData != null) {
+            if (gameData != null && playerData != null && pageHtml != null) {
                 gameData = JSON.parse(gameData);
                 playerData = JSON.parse(playerData);
-
                 $(".gameboard").html(pageHtml);
-
-                console.log(gameData);
-                console.log(playerData);
-                // console.log(pageHtml);
-            } else {
-
-            }
-            $(".sortable").sortable();
+                
+                $('.sortable').unbind();
+                console.log($('.sortable').sortable());
+                $('.sortable').sortable('destroy').sortable();
+                
                 $(".sortable").disableSelection();
                 $(".sortable").on("sortchange", function(event, ui) {
                     fnStoreStats();
                 });
 
+                console.log(gameData);
+                console.log(playerData);
+                // console.log(pageHtml);
+            } else {
+                $(".sortable").sortable();
+                $(".sortable").disableSelection();
+                $(".sortable").on("sortchange", function(event, ui) {
+                    fnStoreStats();
+                });
+            }
             $("#fgUpA").click(function() {
                 var TeamAScore = parseInt($("#scoreA").text());
                 var NewTeamAScore = TeamAScore + 1;
