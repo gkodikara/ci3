@@ -22,9 +22,9 @@
             text-align: center;
         }
         
-        #scoreA,
-        #scoreB {
-            font-size: 50px;
+        .scoreA,
+        .scoreB {
+            font-size: 40px;
             width: 50px;
             margin: 0px 30px 0px 30px;
         }
@@ -32,7 +32,7 @@
         #shotClock,
         #gameTime,
         .big {
-            font-size: 50px;
+            font-size: 40px;
         }
         
         .medium {
@@ -51,55 +51,17 @@
 
 <body>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
+<?php for($i = 1; $i <= 20; $i++): ?>
 <li class="nav-item">
-  <a class="nav-link active" id="tab1" data-toggle="tab" href="#game1" role="tab" aria-controls="home" aria-selected="true">Game 1</a>
+  <a class="nav-link <?= $i == 1 ? 'active' : ''?>" id="tab<?= $i; ?>" data-toggle="tab" href="#game<?= $i; ?>" role="tab" aria-selected="true">Game <?= $i; ?></a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" id="tab2" data-toggle="tab" href="#game2" role="tab" aria-controls="profile" aria-selected="false">Game 2</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab3" data-toggle="tab" href="#game3" role="tab" aria-controls="contact" aria-selected="false">Game 3</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab4" data-toggle="tab" href="#game4" role="tab" aria-controls="contact" aria-selected="false">Game 4</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab5" data-toggle="tab" href="#game5" role="tab" aria-controls="contact" aria-selected="false">Game 5</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab6" data-toggle="tab" href="#game6" role="tab" aria-controls="contact" aria-selected="false">Game 6</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab7" data-toggle="tab" href="#game7" role="tab" aria-controls="contact" aria-selected="false">Game 7</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab8" data-toggle="tab" href="#game8" role="tab" aria-controls="contact" aria-selected="false">Game 8</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab9" data-toggle="tab" href="#game9" role="tab" aria-controls="contact" aria-selected="false">Game 9</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab10" data-toggle="tab" href="#game10" role="tab" aria-controls="contact" aria-selected="false">Game 10</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab11" data-toggle="tab" href="#game11" role="tab" aria-controls="contact" aria-selected="false">Game 11</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab12" data-toggle="tab" href="#game12" role="tab" aria-controls="contact" aria-selected="false">Game 12</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab13" data-toggle="tab" href="#game13" role="tab" aria-controls="contact" aria-selected="false">Game 13</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab14" data-toggle="tab" href="#game14" role="tab" aria-controls="contact" aria-selected="false">Game 14</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" id="tab15" data-toggle="tab" href="#game15" role="tab" aria-controls="contact" aria-selected="false">Game 15</a>
-</li>
+<?php endfor; ?>
+
 
 </ul>
 <div class="tab-content" id="myTabContent">
-<div class="tab-pane fade show active" id="game1" role="tabpanel" aria-labelledby="home-tab">
+<?php for($i = 1; $i <= 20; $i++): ?>
+<div class="tab-pane fade show <?= $i == 1 ? 'active' : ''?>" id="game<?= $i; ?>" role="tabpanel" aria-labelledby="home-tab">
 <div class="container gameboard">
         <div class="row justify-content-md-center">
             <div class="col medium">
@@ -132,18 +94,18 @@
                 <div class="row">
                     <div class="col big">Team A</div>
                     <div class="col">
-                        <button id="fgDownA">-</button>
-                        <span id="scoreA">0</span>
-                        <button id="fgUpA">+</button>
+                        <button class="fgDownA">-</button>
+                        <span class="scoreA">0</span>
+                        <button class="fgUpA">+</button>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <button id="fgDownB">-</button>
-                        <span id="scoreB">0</span>
-                        <button id="fgUpB">+</button>
+                        <button class="fgDownB">-</button>
+                        <span class="scoreB">0</span>
+                        <button class="fgUpB">+</button>
                     </div>
                     <div class="col big">Team B</div>
                 </div>
@@ -158,7 +120,7 @@
                     <div class="col">Fouls</div>
                     <div class="col">Points</div>
                 </div>
-                <ul id="sortable1A" class="sortable">
+                <ul id="sortable<?= $i; ?>A" class="sortable">
                     <li class="ui-state-default" data-player-id="100" data-player-number="24" data-player-name="Kobe" data-player-game-time="00:00" data-player-fouls="0" data-player-points="0">
                         <div class="row">
                             <div class="col">24</div>
@@ -260,7 +222,7 @@
                     <div class="col">Fouls</div>
                     <div class="col">Points</div>
                 </div>
-                <ul id="sortable1B" class="sortable">
+                <ul id="sortable<?= $i; ?>B" class="sortable">
                     <li class="ui-state-default" data-player-id="100" data-player-number="24" data-player-name="Kobe" data-player-game-time="00:00" data-player-fouls="0" data-player-points="0">
                         <div class="row">
                             <div class="col">24</div>
@@ -358,20 +320,7 @@
         <button>Confirm Game</button>
     </div>
 </div>
-<div class="tab-pane fade" id="game2" role="tabpanel" aria-labelledby="profile-tab">
-</div>
-<div class="tab-pane fade" id="game4" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game5" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game6" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game7" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game8" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game9" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game10" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game11" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game12" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game13" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game14" role="tabpanel" aria-labelledby="contact-tab">...</div>
-<div class="tab-pane fade" id="game15" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    <?php endfor; ?>
 </div>
    
     <span id="onlineStatus"></span>
@@ -381,24 +330,21 @@
             checkNetConnection();
             var gameData = localStorage.getItem('gameData');
             var playerData = localStorage.getItem('playerData');
-            var pageHtml = localStorage.getItem('pageHtml');
-            if (gameData != null && playerData != null && pageHtml != null) {
+            var playerRoster = localStorage.getItem('playerRoster');
+            
+            if (gameData != null && playerData != null && playerRoster != null) {
                 gameData = JSON.parse(gameData);
                 playerData = JSON.parse(playerData);
-                $(".gameboard").html(pageHtml);
-                
-                $('.sortable').unbind();
-                console.log($('.sortable').sortable());
-                $('.sortable').sortable('destroy').sortable();
-                
+                playerRoster = JSON.parse(playerRoster);
+                // $(".sortable").html('');
+                $.each(playerRoster, function(iIndex, oObj){
+                    // $("#" + iIndex).html(oObj);
+                });
+                $(".sortable").sortable();
                 $(".sortable").disableSelection();
                 $(".sortable").on("sortchange", function(event, ui) {
                     fnStoreStats();
                 });
-
-                console.log(gameData);
-                console.log(playerData);
-                // console.log(pageHtml);
             } else {
                 $(".sortable").sortable();
                 $(".sortable").disableSelection();
@@ -406,29 +352,29 @@
                     fnStoreStats();
                 });
             }
-            $("#fgUpA").click(function() {
-                var TeamAScore = parseInt($("#scoreA").text());
+            $(".fgUpA").click(function(e) {
+                var TeamAScore = parseInt($(e.target).prev(".scoreA").text());
                 var NewTeamAScore = TeamAScore + 1;
-                $("#scoreA").text(NewTeamAScore);
+                $(e.target).prev(".scoreA").text(NewTeamAScore);
                 fnStoreStats();
             });
-            $("#fgDownA").click(function() {
-                var TeamAScore = parseInt($("#scoreA").text());
+            $(".fgDownA").click(function(e) {
+                var TeamAScore = parseInt($(e.target).next(".scoreA").text());
                 var NewTeamAScore = TeamAScore - 1;
-                $("#scoreA").text(NewTeamAScore);
+                $(e.target).next(".scoreA").text(NewTeamAScore);
                 fnStoreStats();
             });
 
-            $("#fgUpB").click(function() {
-                var TeamBScore = parseInt($("#scoreB").text());
+            $(".fgUpB").click(function(e) {
+                var TeamBScore = parseInt($(e.target).prev(".scoreB").text());
                 var NewTeamBScore = TeamBScore + 1;
-                $("#scoreB").text(NewTeamBScore);
+                $(e.target).prev(".scoreB").text(NewTeamBScore);
                 fnStoreStats();
             });
-            $("#fgDownB").click(function() {
-                var TeamBScore = parseInt($("#scoreB").text());
+            $(".fgDownB").click(function(e) {
+                var TeamBScore = parseInt($(e.target).next(".scoreB").text());
                 var NewTeamBScore = TeamBScore - 1;
-                $("#scoreB").text(NewTeamBScore);
+                $(e.target).next(".scoreB").text(NewTeamBScore);
                 fnStoreStats();
             });
 
@@ -494,7 +440,7 @@
         function fnStoreStats() {
             var oPlayerData = {};
             oPlayerData.teama = {};
-            oPlayerData.teamb = {}
+            oPlayerData.teamb = {};
 
             $.each($(".sortable li"), function(iIndex, oObj) {
                 var oTempData = $(oObj).data();
@@ -506,7 +452,10 @@
                 }
             });
 
-            var sHtml = $(".gameboard").html();
+            var sHtml = {};
+            $.each($(".sortable"), function(iIndex, oObj){
+                sHtml[$(oObj).attr("id")] = $(oObj).html();
+            });
 
             var oGameData = {};
             oGameData.gameTime = $("#gameTime").text();
@@ -517,65 +466,9 @@
             // oGameData['teamBFouls'] = $("#foulB").val();
             if (typeof(Storage) !== "undefined") {
                 localStorage.setItem('gameData', JSON.stringify(oGameData));
-                console.log(oPlayerData);
                 localStorage.setItem('playerData', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml', sHtml);
+                localStorage.setItem('playerRoster', JSON.stringify(sHtml));
 
-                localStorage.setItem('gameData2', JSON.stringify(oGameData));
-                localStorage.setItem('playerData2', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml2', sHtml);
-
-                localStorage.setItem('gameData3', JSON.stringify(oGameData));
-                localStorage.setItem('playerData3', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml3', sHtml);
-
-                localStorage.setItem('gameData4', JSON.stringify(oGameData));
-                localStorage.setItem('playerData4', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml4', sHtml);
-
-                localStorage.setItem('gameData5', JSON.stringify(oGameData));
-                localStorage.setItem('playerData5', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml5', sHtml);
-
-                localStorage.setItem('gameData6', JSON.stringify(oGameData));
-                localStorage.setItem('playerData6', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml6', sHtml);
-
-                localStorage.setItem('gameData7', JSON.stringify(oGameData));
-                localStorage.setItem('playerData7', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml7', sHtml);
-
-                localStorage.setItem('gameData8', JSON.stringify(oGameData));
-                localStorage.setItem('playerData8', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml8', sHtml);
-
-                localStorage.setItem('gameData9', JSON.stringify(oGameData));
-                localStorage.setItem('playerData9', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml9', sHtml);
-
-                localStorage.setItem('gameData10', JSON.stringify(oGameData));
-                localStorage.setItem('playerData10', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml10', sHtml);
-
-                localStorage.setItem('gameData11', JSON.stringify(oGameData));
-                localStorage.setItem('playerData11', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml11', sHtml);
-
-                localStorage.setItem('gameData12', JSON.stringify(oGameData));
-                localStorage.setItem('playerData12', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml12', sHtml);
-
-                localStorage.setItem('gameData13', JSON.stringify(oGameData));
-                localStorage.setItem('playerData13', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml13', sHtml);
-
-                localStorage.setItem('gameData14', JSON.stringify(oGameData));
-                localStorage.setItem('playerData14', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml14', sHtml);
-
-                localStorage.setItem('gameData15', JSON.stringify(oGameData));
-                localStorage.setItem('playerData15', JSON.stringify(oPlayerData));
-                localStorage.setItem('pageHtml15', sHtml);
             } else {
                 console.log('No Web Storage Support');
             }
