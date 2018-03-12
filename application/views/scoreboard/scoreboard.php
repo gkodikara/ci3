@@ -3,10 +3,28 @@
 <html>
 
 <head>
+<?php 
+    $game_arr = array_fill(0, 20, 0);
+?>
+
     <script src="<?= base_url(); ?>assets/libraries/jquery.min.js"></script>
     <script src="<?= base_url(); ?>assets/libraries/easytimer.min.js"></script>
     <script src="<?= base_url(); ?>assets/libraries/bootstrap.js"></script>
     <script src="<?= base_url(); ?>assets/libraries/jquery-ui.min.js"></script>
+
+    <script>
+        var aGameArr = <?= json_encode($game_arr); ?>;
+        var aTimers = new Array();
+        $.each(aGameArr, function(iIndex, oObj){
+            var oTimers = {}
+            oTimers.timer = new Timer();
+            oTimers.timerShot = new Timer();
+            aTimers[iIndex+1] = oTimers;
+        });
+        console.log(aTimers);
+
+        
+    </script>
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>assets/libraries/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>assets/libraries/bootstrap.css">
     <style>
@@ -51,7 +69,7 @@
 
 <body>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-<?php for($i = 1; $i <= 20; $i++): ?>
+<?php for($i = 1; $i <= sizeof($game_arr); $i++): ?>
 <li class="nav-item">
   <a class="nav-link <?= $i == 1 ? 'active' : ''?>" id="tab<?= $i; ?>" data-toggle="tab" href="#game<?= $i; ?>" role="tab" aria-selected="true">Game <?= $i; ?></a>
 </li>
@@ -60,17 +78,23 @@
 
 </ul>
 <div class="tab-content" id="myTabContent">
-<?php for($i = 1; $i <= 20; $i++): ?>
+<?php for($i = 1; $i <= sizeof($game_arr); $i++): ?>
 <div class="tab-pane fade show <?= $i == 1 ? 'active' : ''?>" id="game<?= $i; ?>" role="tabpanel" aria-labelledby="home-tab">
 <div class="container gameboard">
+        <hr/>
+        <h2 class=""><?= "Game " . $i; ?></h2>
+        <hr/>
         <div class="row justify-content-md-center">
-            <div class="col medium">
-                Period 1/4
+            <div class="periods col">
+                <div class="row">
+                    <div class="col">Period</div>
+                    <div class="values col period">1/4</div>
+                </div>
             </div>
-            <div id="chronoGame" class="col">
+            <div class="chronoGame col">
                 <div class="row">
                     <div class="col">Time</div>
-                    <div class="values col" id="gameTime">00:10:00</div>
+                    <div class="values col gameTime">00:10:00</div>
                 </div>
                 <div>
                     <button class="startButton">Start</button>
@@ -79,16 +103,17 @@
                     <!-- <button class="resetButton">Reset</button> -->
                 </div>
             </div>
-            <div id="chronoShot" class="col">
+            <div class="chronoShot col">
                 <div class="row">
                     <div class="col">Shot</div>
-                    <div class="values col" id="shotClock">00:00:35</div>
+                    <div class="values col shotClock">00:00:35</div>
                 </div>
                 <div>
                     <button class="resetButton">Reset</button>
                 </div>
             </div>
         </div>
+        <hr/>
         <div class="row">
             <div class="col">
                 <div class="row">
@@ -111,6 +136,7 @@
                 </div>
             </div>
         </div>
+        <hr/>
         <div class="row">
             <div class="col">
                 <div class="row">
@@ -300,7 +326,7 @@
                         <div class="row">
                             <div class="col">22</div>
                             <div class="col">Clyde the Glyde</div>
-                            <div class="col gametime">00:00</div>
+                            <div class="col">00:00</div>
                             <div class="col">0</div>
                             <div class="col">0</div>
                         </div>
@@ -325,9 +351,9 @@
    
     <span id="onlineStatus"></span>
     <script>
-    
         $(document).ready(function() {
             checkNetConnection();
+            
             var gameData = localStorage.getItem('gameData');
             var playerData = localStorage.getItem('playerData');
             var playerRoster = localStorage.getItem('playerRoster');
@@ -379,8 +405,8 @@
             });
 
 
-            var timer = new Timer();
-            $('#chronoGame .startButton').click(function() {
+
+            $('.chronoGame .startButton').click(function() {
                 console.log(timer.getTimeValues().seconds);
                 timer.start({
                     countdown: true,
@@ -395,25 +421,24 @@
                     }
                 });
             });
-            $('#chronoGame .pauseButton').click(function() {
+            $('.chronoGame .pauseButton').click(function() {
                 timer.pause();
                 timerShot.pause();
                 fnStoreStats();
             });
             timer.addEventListener('secondsUpdated', function(e) {
-                $('#chronoGame .values').html(timer.getTimeValues().toString());
+                $('.chronoGame .values').html(timer.getTimeValues().toString());
                 // console.log(timer.getTimeValues());
                 checkNetConnection();
             });
             timer.addEventListener('started', function(e) {
-                $('#chronoGame .values').html(timer.getTimeValues().toString());
+                $('.chronoGame .values').html(timer.getTimeValues().toString());
             });
             timer.addEventListener('reset', function(e) {
-                $('#chronoGame .values').html(timer.getTimeValues().toString());
+                $('.chronoGame .values').html(timer.getTimeValues().toString());
             });
 
-            var timerShot = new Timer();
-            $('#chronoShot .startButton').click(function() {
+            $('.chronoShot .startButton').click(function() {
                 timerShot.start({
                     countdown: true,
                     startValues: {
@@ -422,18 +447,18 @@
                 });
             });
 
-            $('#chronoShot .resetButton').click(function() {
+            $('.chronoShot .resetButton').click(function() {
                 timerShot.reset();
                 fnStoreStats();
             });
             timerShot.addEventListener('secondsUpdated', function(e) {
-                $('#chronoShot .values').html(timerShot.getTimeValues().toString());
+                $('.chronoShot .values').html(timerShot.getTimeValues().toString());
             });
             timerShot.addEventListener('started', function(e) {
-                $('#chronoShot .values').html(timerShot.getTimeValues().toString());
+                $('.chronoShot .values').html(timerShot.getTimeValues().toString());
             });
             timerShot.addEventListener('reset', function(e) {
-                $('#chronoShot .values').html(timerShot.getTimeValues().toString());
+                $('.chronoShot .values').html(timerShot.getTimeValues().toString());
             });
         });
 
@@ -458,10 +483,10 @@
             });
 
             var oGameData = {};
-            oGameData.gameTime = $("#gameTime").text();
-            oGameData.shotClock = $("#shotClock").text();
-            oGameData.teamAScore = $("#scoreA").text();
-            oGameData.teamBScore = $("#scoreB").text();
+            oGameData.gameTime = $(".gameTime").text();
+            oGameData.shotClock = $(".shotClock").text();
+            oGameData.teamAScore = $(".scoreA").text();
+            oGameData.teamBScore = $(".scoreB").text();
             // oGameData['teamBFouls'] = $("#foulA").val();
             // oGameData['teamBFouls'] = $("#foulB").val();
             if (typeof(Storage) !== "undefined") {
